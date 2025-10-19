@@ -1,0 +1,17 @@
+[project]
+name = "moms-diary-chatbot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastapi>=0.119.0",
+    "jupyter>=1.1.1",
+    "langchain>=0.3.27",
+    "langchain-core>=0.3.79",
+    "langchain-openai>=0.3.35",
+    "langgraph>=0.6.10",
+    "streamlit>=1.50.0",
+    "websockets>=15.0.1",
+]
