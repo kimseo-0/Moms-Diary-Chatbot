@@ -2,7 +2,7 @@
 # uv add openai python-dotenv streamlit
 # uv add streamlit==1.49.1
 # .env: OPENAI_API_KEY=...
-# 실행: streamlit run app.py
+# 실행: streamlit run src/app.py
 import streamlit as st
 from infra.chat_db import init_chat_db
 from infra.baby_db import init_baby_db
