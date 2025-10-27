@@ -43,7 +43,6 @@ def save_message(session_id: str, role: str, content: str,
         )
         conn.commit()
 
-
 def load_messages(session_id: str,
                   db_path: Path | str = DEFAULT_DB_PATH) -> List[Dict[str, Any]]:
     """

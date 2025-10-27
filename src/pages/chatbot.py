@@ -1,8 +1,8 @@
 import streamlit as st
 
-from infra.chat_db import init_chat_db, load_messages, save_message
+from infra.db.chat_db import init_chat_db, load_messages, save_message
 from utils.session import get_session_id
-from agent.chat import send_chat
+from backend.chat import send_chat, stream_chat
 
 session_id = get_session_id()
 
@@ -46,7 +46,8 @@ if user_text:
         with container:
             spin_text = f"{profile.get('nickname')}가 생각하는 중이에요..." if profile.get('nickname') else "생각하는 중이에요..."
             with st.spinner(spin_text):
-                answer = send_chat(user_text)      # 동기 함수라고 가정 (비동기면 await/stream 처리)
+                # answer = st.write_stream(stream_chat(session_id, user_text))
+                answer = send_chat(session_id, user_text) 
             st.markdown(answer)
 
     # 2-4) 어시스턴트 응답도 세션 & DB에 반영

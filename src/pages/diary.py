@@ -3,9 +3,9 @@ import streamlit as st
 import datetime as dt
 
 from utils.session import get_session_id
-from agent.llm import build_diary
-from infra.chat_db import init_chat_db, load_messages_by_date
-from infra.diary_db import init_diary_db, upsert_diary, load_diaries
+# from agent.llm import build_diary
+from infra.db.chat_db import init_chat_db, load_messages_by_date
+from infra.db.diary_db import init_diary_db, upsert_diary, load_diaries
 
 st.set_page_config(page_title="Diary", page_icon="📔", layout="centered")
 st.title("📔 일기")

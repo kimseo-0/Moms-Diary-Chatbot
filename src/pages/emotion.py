@@ -1,8 +1,8 @@
 # pages/03_감정_분석.py
 import streamlit as st
-from infra.chat_db import load_messages
+from infra.db.chat_db import load_messages
 from utils.session import get_session_id
-from agent.llm import analyze_emotion
+# from agent.llm import analyze_emotion
 
 st.set_page_config(page_title="감정 분석", page_icon="🧠", layout="centered")
 st.title("🧠 엄마의 감정 분석")

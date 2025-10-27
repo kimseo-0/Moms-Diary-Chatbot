@@ -3,7 +3,7 @@ import json
 import datetime as dt
 import streamlit as st
 
-from infra.baby_db import load_baby_profile, upsert_baby_profile
+from infra.db.baby_db import load_baby_profile, upsert_baby_profile
 from utils.session import get_session_id
 
 st.set_page_config(page_title="아기 정보", page_icon="👶", layout="centered")
