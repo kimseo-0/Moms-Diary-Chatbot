@@ -1,6 +1,7 @@
 *.pyc
-/app
 /data
 /database
 /vectorstore
-.env
+.history/
+.venv/
+.
