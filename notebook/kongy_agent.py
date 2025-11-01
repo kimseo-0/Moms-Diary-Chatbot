@@ -115,7 +115,7 @@ def agent_node(state: State) -> State:
 tools_node = ToolNode(TOOLS)
 
 # 3. Final 노드 (일기장) (수정)
-from datetime import datetime
+from datetime import datetime, timezone
 final_system = (
     "당신은 '아기 일기장'입니다. 지금까지의 [대화 내용] 전체를 바탕으로, '아기'의 관점에서 엄마에게 쓰는 일기를 작성하세요."
     "반드시 다음 형식을 지켜주세요:\n"
@@ -126,7 +126,7 @@ final_system = (
     "[대화 내용]"
 )
 def final_node(state: State) -> State:
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = datetime.now(timezone('Asia/Seoul')).strftime("%Y-%m-%d")
     chat_history = []
     for msg in state.get("messages", []):
         if isinstance(msg, HumanMessage):
