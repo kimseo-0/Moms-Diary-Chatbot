@@ -7,6 +7,9 @@ import re
 import json
 from pydantic import BaseModel, Field
 from app.utils.db_utils import get_connection, upsert_from_model, fetch_one, fetch_all, prepare_model_sql_parts
+from app.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class DiaryEntry(BaseModel):
@@ -30,14 +33,8 @@ class DiaryRepository:
             ensure_db_initialized(str(self.db_path))
         except Exception:
             pass
-        # Ensure used_chats_json column exists (migration fallback)
-        try:
-            with get_connection(str(self.db_path)) as conn:
-                conn.execute("ALTER TABLE diaries ADD COLUMN used_chats_json TEXT")
-                conn.commit()
-        except Exception:
-            # ignore if column already exists or any other issue
-            pass
+        # NOTE: schema.sql already includes used_chats_json. Rely on migrations
+        # (storage/db/migrations/*.sql) instead of performing an ALTER TABLE at init time.
 
     @staticmethod
     def _normalize_date_str(s: Optional[str]) -> Optional[str]:
@@ -69,6 +66,7 @@ class DiaryRepository:
 
     def save_diary(self, diary: DiaryEntry):
         """일기 저장 (upsert)"""
+        logger.debug("save_diary 호출: session=%s, date=%s", getattr(diary, 'session_id', None), getattr(diary, 'date', None))
         with get_connection(str(self.db_path)) as conn:
             # Normalize date to 'YYYY-MM-DD'
             try:
@@ -97,6 +95,7 @@ class DiaryRepository:
                 if set_clause:
                     query = f"UPDATE diaries SET {set_clause} WHERE id = ?"
                     conn.execute(query, (*values, diary_id))
+                    logger.info("일기 업데이트: id=%s, session=%s", diary_id, diary.session_id)
                 conn.commit()
             else:
                 # Convert used_chats list to JSON string for storage if present
@@ -108,6 +107,7 @@ class DiaryRepository:
                     pass
                 from app.utils.db_utils import upsert_from_model
                 upsert_from_model(conn, "diaries", diary, pk_field="id")
+                logger.info("일기 신규 저장: session=%s, date=%s", diary.session_id, diary.date)
 
     def get_diary_by_date(self, session_id: str, target_date: str) -> Optional[DiaryEntry]:
         """특정 날짜 일기 1개 조회"""
@@ -130,6 +130,7 @@ class DiaryRepository:
             except Exception:
                 d.used_chats = None
             return d
+        logger.debug("get_diary_by_date 조회: session=%s, date=%s, result_id=%s", session_id, target_date, d.id if d else None)
 
     def list_diaries(self, session_id: str, start_date: Optional[str] = None, end_date: Optional[str] = None) -> List[DiaryEntry]:
         """전체 또는 기간별 일기 목록 조회"""
@@ -147,9 +148,11 @@ class DiaryRepository:
                 rows = conn.execute(query, (session_id,)).fetchall()
 
             return [DiaryEntry(**row) for row in rows]
+        logger.debug("list_diaries 조회: session=%s, start=%s, end=%s, count=%d", session_id, start_date, end_date, len(rows))
 
     def delete_diary(self, diary_id: int):
         """특정 일기 삭제"""
         with get_connection(str(self.db_path)) as conn:
             conn.execute("DELETE FROM diaries WHERE id = ?", (diary_id,))
             conn.commit()
+        logger.info("일기 삭제 완료: id=%s", diary_id)

@@ -3,6 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 import chromadb
+from app.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 @dataclass
 class RetrievedDoc:
@@ -19,6 +22,7 @@ class ChromaAdapter:
     """
 
     def __init__(self, persist_dir: str, embedding_fn=None):
+        logger.info("ChromaAdapter 초기화: persist_dir=%s", persist_dir)
         self._client = chromadb.PersistentClient(path=persist_dir)
         self._embedding_fn = embedding_fn
 
@@ -37,6 +41,7 @@ class ChromaAdapter:
         """
         지정된 컬렉션에서 query_text와 유사한 문서 검색.
         """
+        logger.info("Chroma 검색 실행: collection=%s, top_k=%d", collection_name, top_k)
         coll = self._open(collection_name)
         result = coll.query(
             query_texts=[query_text],

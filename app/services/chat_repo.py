@@ -3,6 +3,9 @@ from typing import Optional, List
 from datetime import datetime, timezone, timedelta
 from pydantic import BaseModel, Field
 from app.utils.db_utils import get_connection
+from app.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class ChatLog(BaseModel):
@@ -46,6 +49,7 @@ class ChatRepository:
                 ),
             )
             conn.commit()
+        logger.debug("채팅 저장 완료: session=%s, role=%s", message.session_id, message.role)
 
     def get_recent_messages(self, session_id: str, limit: int = 10) -> List[ChatLog]:
         """최근 N개의 메시지 조회 (최신순 정렬)"""
@@ -88,6 +92,7 @@ class ChatRepository:
         with get_connection(str(self.db_path)) as conn:
             conn.execute("DELETE FROM chat_logs WHERE session_id = ?", (session_id,))
             conn.commit()
+        logger.info("세션 전체 메시지 삭제: session=%s", session_id)
 
     def delete_last_message(self, session_id: str) -> bool:
         """가장 최근 채팅 메시지 1개 삭제"""
@@ -106,4 +111,5 @@ class ChatRepository:
             # Delete that message
             conn.execute("DELETE FROM chat_logs WHERE id = ?", (row["id"],))
             conn.commit()
+            logger.info("가장 최근 메시지 삭제 완료: id=%s, session=%s", row["id"], session_id)
             return True

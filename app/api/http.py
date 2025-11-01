@@ -2,7 +2,10 @@
 from __future__ import annotations
 from fastapi import APIRouter, HTTPException
 from app.core.io_payload import InputEnvelope, OutputEnvelope, InputPayload, InputMetadata
+from app.core.pydantic_utils import safe_model_dump
+from app.core.logger import get_logger
 from app.graphs.main_graph import compile_app_graph
+from functools import lru_cache
 from app.core.state import AgentState
 from app.core.dependencies import get_diary_repo, get_chat_repo, get_profile_repo
 from app.services.diary_repo import DiaryEntry
@@ -12,9 +15,12 @@ import json
 from pydantic import BaseModel
 
 router = APIRouter()
+logger = get_logger(__name__)
 
-# 컴파일된 그래프 싱글톤
-_graph = compile_app_graph()
+@lru_cache(maxsize=1)
+def get_app_graph():
+    """컴파일된 그래프를 지연 생성하여 import-time 비용을 줄임."""
+    return compile_app_graph()
 
 
 @router.post("/chat", response_model=OutputEnvelope)
@@ -31,14 +37,8 @@ def chat(envelope: InputEnvelope) -> OutputEnvelope:
 
     try:
         chat_repo = get_chat_repo()
-        try:
-            user_meta = envelope.payload.metadata.model_dump()
-        except Exception:
-            try:
-                user_meta = envelope.payload.metadata.model_dump()  # pydantic v2 fallback
-            except Exception:
-                # Fallback to simple dict conversion
-                user_meta = envelope.payload.metadata.__dict__ if hasattr(envelope.payload.metadata, "__dict__") else {}
+        # Normalize metadata from Pydantic model to plain dict (v1/v2 compatible)
+        user_meta = safe_model_dump(envelope.payload.metadata)
 
         chat_repo.save_message(
             ChatLog(
@@ -50,12 +50,10 @@ def chat(envelope: InputEnvelope) -> OutputEnvelope:
             )
         )
     except Exception as e:
-        print(f"⚠️ 사용자 메시지 저장 실패: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.exception("사용자 메시지 저장 실패: %s", str(e))
 
     state_in = AgentState(session_id=envelope.session_id, input=envelope)
-    state_out = AgentState(**_graph.invoke(state_in))
+    state_out = AgentState(**get_app_graph().invoke(state_in))
 
     try:
         chat_repo = get_chat_repo()
@@ -63,16 +61,10 @@ def chat(envelope: InputEnvelope) -> OutputEnvelope:
         if final and getattr(final, "result", None):
             res = final.result
             # Serialize full result (text, data, meta) so UI can render by type
-            try:
-                res_meta = res.meta.model_dump()
-            except Exception:
-                res_meta = res.meta.__dict__ if hasattr(res.meta, "__dict__") else {}
+            res_meta = safe_model_dump(res.meta)
 
             # Try to get data dict if present
-            try:
-                res_data = res.data if hasattr(res, "data") else {}
-            except Exception:
-                res_data = {}
+            res_data = res.data if hasattr(res, "data") else {}
 
             result_obj = {
                 "text": getattr(res, "text", ""),
@@ -90,9 +82,7 @@ def chat(envelope: InputEnvelope) -> OutputEnvelope:
                 )
             )
     except Exception as e:
-        print(f"⚠️ 어시스턴트 메시지 저장 실패: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.exception("어시스턴트 메시지 저장 실패: %s", str(e))
 
     return state_out.final or OutputEnvelope.err("INTERNAL_ERROR", "응답 생성 실패", retryable=False)
 
@@ -115,9 +105,9 @@ def save_diary(payload: DiarySaveRequest):
 def get_diary(session_id: str, target_date: str):
     repo = get_diary_repo()
     d = repo.get_diary_by_date(session_id, target_date)
-    print(d)
+    logger.debug("일기 조회(사전): %s", safe_model_dump(d) if d else None)
     if d:  # diary exists in DB - return it immediately
-        return {"ok": True, "diary": d.model_dump()}
+        return {"ok": True, "diary": safe_model_dump(d)}
     
     # Diary doesn't exist - trigger generation via diary node
     metadata = InputMetadata(type="diary", date=target_date, week=None, language="ko")
@@ -126,13 +116,13 @@ def get_diary(session_id: str, target_date: str):
     
     # Route through diary node
     state_in = AgentState(session_id=session_id, input=envelope)
-    state_out = AgentState(**_graph.invoke(state_in))
+    state_out = AgentState(**get_app_graph().invoke(state_in))
 
-    print(state_out)
+    logger.debug("state_out (다이어리 생성 후): %s", safe_model_dump(state_out))
     
     # Re-fetch diary after generation
     d = repo.get_diary_by_date(session_id, target_date)
-    return {"ok": True, "diary": d.model_dump() if d else None}
+    return {"ok": True, "diary": safe_model_dump(d) if d else None}
 
 
 # ----- Chat history endpoint -----
@@ -140,7 +130,7 @@ def get_diary(session_id: str, target_date: str):
 def get_chat_history(session_id: str):
     repo = get_chat_repo()
     msgs = repo.get_session_messages(session_id)
-    return {"ok": True, "messages": [m.model_dump() for m in msgs]}
+    return {"ok": True, "messages": [safe_model_dump(m) for m in msgs]}
 
 
 @router.get("/chat/{session_id}/history/{target_date}", response_model=dict)
@@ -148,7 +138,7 @@ def get_chat_history_by_date(session_id: str, target_date: str):
     """특정 날짜(YYYY-MM-DD) 기준으로 메시지 조회"""
     repo = get_chat_repo()
     msgs = repo.get_messages_by_date(session_id, target_date)
-    return {"ok": True, "messages": [m.model_dump() for m in msgs]}
+    return {"ok": True, "messages": [safe_model_dump(m) for m in msgs]}
 
 
 @router.post("/profile/init/{session_id}", response_model=dict)

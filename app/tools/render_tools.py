@@ -3,6 +3,7 @@ from langchain.agents import tool
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any
 from app.core.io_payload import OutputEnvelope
+from app.core.pydantic_utils import safe_model_dump
 
 @tool("render_output", return_direct=False)
 def render_chat_output_tool(meta_type: str, text: str = "", data: Dict[str, Any] | None = None):
@@ -35,4 +36,4 @@ def render_chat_output_tool(meta_type: str, text: str = "", data: Dict[str, Any]
         return {"ok": False, "error": f"Unknown meta_type {meta_type}"}
 
     out.result.meta["timestamp"] = now
-    return out.model_dump()
+    return safe_model_dump(out)

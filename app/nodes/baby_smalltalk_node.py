@@ -5,33 +5,18 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 from app.core.tooling import get_llm_with_tools
+from app.prompts.smalltalk_prompts import SMALLTALK_SYSTEM, SMALLTALK_USER, WRAP_SYSTEM, WRAP_USER
 from app.core.dependencies import get_openai
 from app.core.config import config
 from app.core.state import AgentState
 from app.core.io_payload import OutputEnvelope, InputEnvelope
+from app.core.logger import get_logger
 
-# Small talk (일상 대화)
-SMALLTALK_SYSTEM = (
-    "너는 태아(아기)의 1인칭 시점으로 대화하는 AI야.\n"
-    "- 항상 엄마에게 말하듯이 '엄마~'라고 시작하거나 부드럽게 말해.\n"
-    "- 1~3문장, 240자 이내.\n"
-    "- 내용은 따뜻하고 공감있게, 질문에는 짧게 답변.\n"
-    "- 공포, 불안, 부정적 표현 금지."
-)
-SMALLTALK_USER = "엄마가 한 말: {user_input}"
-
-
-# wrap_expert 모드 (전문가 답변 요약)
-WRAP_SYSTEM = (
-    "너는 태아(아기)의 말투로 전문가의 긴 설명을 요약해서 엄마에게 전하는 역할을 해.\n"
-    "- 전문가 답변을 왜곡하지 말고 핵심만 부드럽게 말해.\n"
-    "- 1~3문장.\n"
-    "- 공포나 부정 표현 금지."
-)
-WRAP_USER = "전문가의 답변:\n{expert_text}\n\n이 내용을 엄마에게 아기 말투로 짧게 전해줘."
+logger = get_logger(__name__)
 
 def baby_smalltalk_node(state: AgentState, mode: str = "small_talk") -> AgentState:
     llm = get_llm_with_tools(temperature=0.0)
+    logger.debug("baby_smalltalk_node 호출: mode=%s, session=%s", mode, state.input.session_id)
 
     if mode == "wrap_expert":
         expert_text = (state.metadata.get("expert_raw") or "").strip()
@@ -41,6 +26,7 @@ def baby_smalltalk_node(state: AgentState, mode: str = "small_talk") -> AgentSta
         ])
         chain = prompt | llm | StrOutputParser()
         baby_text = chain.invoke({"expert_text": expert_text}).strip()
+        logger.info("baby_smalltalk_node.wrap_expert 응답 생성, session=%s, len=%d", state.input.session_id, len(baby_text))
 
         state.final = OutputEnvelope.ok_expert(
             text=baby_text,
@@ -63,6 +49,7 @@ def baby_smalltalk_node(state: AgentState, mode: str = "small_talk") -> AgentSta
 
     chain = prompt | llm | StrOutputParser()
     baby_text = chain.invoke({"user_input": text}).strip()
+    logger.info("baby_smalltalk_node.small_talk 응답 생성, session=%s, len=%d", state.input.session_id, len(baby_text))
 
     state.final = OutputEnvelope.ok_chat(
         text=baby_text,

@@ -2,6 +2,7 @@
 import sqlite3
 from typing import Dict, Any, Tuple
 from pydantic import BaseModel
+from app.core.pydantic_utils import safe_model_dump
 from pathlib import Path
 
 
@@ -70,7 +71,7 @@ def prepare_model_sql_parts(model: BaseModel, pk_field: str = "id") -> Tuple[Dic
     - exclude_none=True 로 None 필드 제거
     - set_clause, values, pk_value 반환
     """
-    data = model.model_dump(exclude_none=True)
+    data = safe_model_dump(model, exclude_none=True)
     if pk_field not in data:
         raise ValueError(f"Primary key field '{pk_field}' missing in data")
 
@@ -91,7 +92,7 @@ def upsert_from_model(conn: sqlite3.Connection, table: str, model: BaseModel, pk
     Pydantic 모델 기반 동적 UPSERT (INSERT or UPDATE)
     """
     # Use model_dump first so we can decide whether PK is present.
-    data = model.model_dump(exclude_none=True)
+    data = safe_model_dump(model, exclude_none=True)
     pk_value = data.get(pk_field)
 
     if pk_value is None:

@@ -1,0 +1,293 @@
+2025-11-01 22:41:12,910 INFO app.main: Running startup migrations...
+2025-11-01 22:41:12,913 INFO app.main: Migrations applied
+2025-11-01 22:41:24,910 INFO app.main: Shutting down application
+2025-11-01 22:41:26,761 INFO app.main: Running startup migrations...
+2025-11-01 22:41:26,761 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:41:26,763 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:41:26,763 INFO app.main: Migrations applied
+2025-11-01 22:41:35,602 INFO app.main: Shutting down application
+2025-11-01 22:41:37,495 INFO app.main: Running startup migrations...
+2025-11-01 22:41:37,495 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:41:37,498 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:41:37,498 INFO app.main: Migrations applied
+2025-11-01 22:41:54,370 INFO app.main: Shutting down application
+2025-11-01 22:43:42,481 INFO app.main: Running startup migrations...
+2025-11-01 22:43:42,481 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:43:42,487 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:43:42,487 INFO app.main: Migrations applied
+2025-11-01 22:43:54,885 INFO app.main: Shutting down application
+2025-11-01 22:43:56,700 INFO app.main: Running startup migrations...
+2025-11-01 22:43:56,700 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:43:56,700 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:43:56,700 INFO app.main: Migrations applied
+2025-11-01 22:44:12,833 INFO app.main: Shutting down application
+2025-11-01 22:44:14,748 INFO app.main: Running startup migrations...
+2025-11-01 22:44:14,748 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:44:14,750 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:44:14,750 INFO app.main: Migrations applied
+2025-11-01 22:44:28,464 INFO app.main: Shutting down application
+2025-11-01 22:44:30,503 INFO app.main: Running startup migrations...
+2025-11-01 22:44:30,503 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:44:30,505 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:44:30,506 INFO app.main: Migrations applied
+2025-11-01 22:45:28,241 INFO app.main: Shutting down application
+2025-11-01 22:45:30,126 INFO app.main: Running startup migrations...
+2025-11-01 22:45:30,126 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:45:30,129 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:45:30,129 INFO app.main: Migrations applied
+2025-11-01 22:47:31,473 INFO app.main: Shutting down application
+2025-11-01 22:47:33,397 INFO app.main: Running startup migrations...
+2025-11-01 22:47:33,397 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:47:33,397 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:47:33,397 INFO app.main: Migrations applied
+2025-11-01 22:47:46,563 INFO app.main: Shutting down application
+2025-11-01 22:47:48,523 INFO app.main: Running startup migrations...
+2025-11-01 22:47:48,523 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:47:48,523 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:47:48,523 INFO app.main: Migrations applied
+2025-11-01 22:47:57,854 INFO app.main: Shutting down application
+2025-11-01 22:47:59,758 INFO app.main: Running startup migrations...
+2025-11-01 22:47:59,758 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:47:59,761 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:47:59,761 INFO app.main: Migrations applied
+2025-11-01 22:51:46,845 INFO app.main: Shutting down application
+2025-11-01 22:51:48,678 INFO app.main: Running startup migrations...
+2025-11-01 22:51:48,678 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:51:48,678 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:51:48,678 INFO app.main: Migrations applied
+2025-11-01 22:52:24,729 INFO app.main: Shutting down application
+2025-11-01 22:52:26,669 INFO app.main: Running startup migrations...
+2025-11-01 22:52:26,669 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:52:26,669 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:52:26,669 INFO app.main: Migrations applied
+2025-11-01 22:52:38,434 INFO app.main: Shutting down application
+2025-11-01 22:52:40,390 INFO app.main: Running startup migrations...
+2025-11-01 22:52:40,390 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:52:40,393 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:52:40,393 INFO app.main: Migrations applied
+2025-11-01 22:52:51,873 INFO app.main: Shutting down application
+2025-11-01 22:52:53,784 INFO app.main: Running startup migrations...
+2025-11-01 22:52:53,784 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:52:53,784 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:52:53,784 INFO app.main: Migrations applied
+2025-11-01 22:53:06,753 INFO app.main: Shutting down application
+2025-11-01 22:53:08,620 INFO app.main: Running startup migrations...
+2025-11-01 22:53:08,620 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:53:08,620 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:53:08,620 INFO app.main: Migrations applied
+2025-11-01 22:53:38,018 INFO app.main: Shutting down application
+2025-11-01 22:53:39,862 INFO app.main: Running startup migrations...
+2025-11-01 22:53:39,862 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:53:39,865 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:53:39,865 INFO app.main: Migrations applied
+2025-11-01 22:53:46,220 INFO app.main: Shutting down application
+2025-11-01 22:53:48,024 INFO app.main: Running startup migrations...
+2025-11-01 22:53:48,024 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:53:48,024 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:53:48,024 INFO app.main: Migrations applied
+2025-11-01 22:55:40,426 INFO app.main: Shutting down application
+2025-11-01 22:55:42,417 INFO app.main: Running startup migrations...
+2025-11-01 22:55:42,417 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:55:42,417 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:55:42,417 INFO app.main: Migrations applied
+2025-11-01 22:55:44,341 INFO app.main: Running startup migrations...
+2025-11-01 22:55:44,343 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:55:44,345 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:55:44,345 INFO app.main: Migrations applied
+2025-11-01 22:57:01,733 INFO app.main: Shutting down application
+2025-11-01 22:57:03,626 INFO app.main: Running startup migrations...
+2025-11-01 22:57:03,626 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:03,626 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:03,626 INFO app.main: Migrations applied
+2025-11-01 22:57:14,734 INFO app.main: Shutting down application
+2025-11-01 22:57:16,618 INFO app.main: Running startup migrations...
+2025-11-01 22:57:16,618 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:16,621 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:16,621 INFO app.main: Migrations applied
+2025-11-01 22:57:33,491 INFO app.main: Shutting down application
+2025-11-01 22:57:35,439 INFO app.main: Running startup migrations...
+2025-11-01 22:57:35,439 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:35,439 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:35,439 INFO app.main: Migrations applied
+2025-11-01 22:57:52,290 INFO app.main: Shutting down application
+2025-11-01 22:57:54,146 INFO app.main: Running startup migrations...
+2025-11-01 22:57:54,146 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:54,150 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:57:54,150 INFO app.main: Migrations applied
+2025-11-01 22:58:00,119 INFO app.main: Shutting down application
+2025-11-01 22:58:17,021 INFO app.main: Running startup migrations...
+2025-11-01 22:58:17,021 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:58:17,021 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:58:17,021 INFO app.main: Migrations applied
+2025-11-01 22:58:34,173 INFO app.main: Shutting down application
+2025-11-01 22:58:36,040 INFO app.main: Running startup migrations...
+2025-11-01 22:58:36,040 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:58:36,040 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:58:36,040 INFO app.main: Migrations applied
+2025-11-01 22:58:53,090 INFO app.main: Shutting down application
+2025-11-01 22:58:54,974 INFO app.main: Running startup migrations...
+2025-11-01 22:58:54,974 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:58:54,974 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 22:58:54,974 INFO app.main: Migrations applied
+2025-11-01 23:01:23,137 INFO app.main: Shutting down application
+2025-11-01 23:01:25,075 INFO app.main: Running startup migrations...
+2025-11-01 23:01:25,075 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:01:25,086 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:01:25,086 INFO app.main: Migrations applied
+2025-11-01 23:01:26,878 INFO app.main: Running startup migrations...
+2025-11-01 23:01:26,879 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:01:26,881 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:01:26,881 INFO app.main: Migrations applied
+2025-11-01 23:02:21,213 INFO app.main: Shutting down application
+2025-11-01 23:02:23,173 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:02:23,180 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:02:23,180 INFO app.utils.migrations: Running migrations for DB: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:02:23,180 INFO app.utils.migrations: Database initialized/updated: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:02:23,180 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:02:35,213 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:02:35,230 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:02:35,230 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:02:35,235 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:02:35,235 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:02:45,547 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:02:45,547 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:02:45,547 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:02:45,547 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:02:45,547 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:03:55,033 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:03:55,042 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:03:55,042 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:03:55,045 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:03:55,045 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:05:28,468 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:05:28,472 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:05:28,472 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:05:28,486 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:05:28,488 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:15:27,147 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:15:27,159 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:15:27,159 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:15:27,164 INFO app.utils.migrations: 마이그레이션 적용 중: 0001_create_example_table.sql
+2025-11-01 23:15:27,177 INFO app.utils.migrations: 마이그레이션 적용 완료: 0001_create_example_table.sql
+2025-11-01 23:15:27,178 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:15:27,179 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:22,806 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:22,806 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:22,806 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:22,824 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:22,824 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:24,714 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:24,719 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:24,720 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:24,720 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:24,720 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:35,227 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:35,227 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:35,227 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:35,237 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:35,237 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:37,045 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:37,049 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:37,049 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:37,055 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:37,062 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:45,264 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:45,268 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:45,268 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:45,270 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:45,270 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:47,087 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:47,087 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:47,087 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:47,106 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:47,106 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:52,820 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:52,838 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:52,838 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:52,842 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:52,842 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:17:54,665 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:17:54,672 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:17:54,675 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:54,677 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:17:54,678 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:18:01,121 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:18:01,121 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:18:01,121 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:01,121 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:01,121 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:18:14,126 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:18:14,130 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:18:14,130 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:14,130 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:14,130 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:18:24,063 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:18:24,063 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:18:24,063 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:24,070 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:24,070 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:18:33,119 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:18:33,123 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:18:33,123 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:33,128 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:33,128 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:18:52,300 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:18:52,303 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:18:52,303 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:52,303 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:18:52,303 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:19:11,494 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:19:11,494 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:19:11,494 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:19:11,502 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:19:11,502 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:19:51,747 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:19:51,747 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:19:51,747 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:19:51,747 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:19:51,763 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:19:53,539 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:19:53,550 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:19:53,550 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:19:53,556 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:19:53,556 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:22:45,342 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:22:45,352 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:22:45,352 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:45,355 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:45,355 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:22:47,326 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:22:47,331 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:22:47,331 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:47,334 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:47,334 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:22:49,304 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:22:49,309 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:22:49,309 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:49,313 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:49,313 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:22:51,501 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:22:51,509 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:22:51,509 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:51,509 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:22:51,509 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:23:07,068 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:23:07,084 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:23:07,084 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:07,087 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:07,088 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:23:09,113 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:23:09,118 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:23:09,118 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:09,119 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:09,119 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:23:17,392 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:23:17,408 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:23:17,409 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:17,410 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:17,410 INFO app.main: 마이그레이션 적용 완료
+2025-11-01 23:23:19,438 INFO app.main: 애플리케이션 종료 중
+2025-11-01 23:23:19,442 INFO app.main: 시작 시 마이그레이션 실행 중...
+2025-11-01 23:23:19,442 INFO app.utils.migrations: DB 마이그레이션 실행: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:19,445 INFO app.utils.migrations: DB 초기화/업데이트 완료: C:\Potenup\Moms-Diary-Chatbot\storage\db\app.db
+2025-11-01 23:23:19,445 INFO app.main: 마이그레이션 적용 완료

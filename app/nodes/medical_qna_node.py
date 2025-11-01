@@ -9,24 +9,13 @@ from app.core.tooling import get_llm_with_tools
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
+from app.prompts.medical_prompts import SYSTEM as MED_SYSTEM, USER_TMPL
+
 from app.core.dependencies import get_openai
 from app.core.config import config
+from app.core.logger import get_logger
 
-SYSTEM = """너는 산모에게 안전하게 정보를 제공하는 의료 전문 어시스턴트야.
-- 반드시 제공된 '근거'의 범위 안에서만 설명해.
-- 단정적 진단/치료 지시는 피하고, 일반적 안전 수칙을 우선 제시해.
-- 한국어로 간결하게 답변해.
-"""
-
-USER_TMPL = """[사용자 질문]
-{question}
-
-[검색 근거(발췌)]
-{evidence}
-
-요청:
-- 위 '근거' 안에서만 핵심을 6~10문장으로 설명해.
-"""
+logger = get_logger(__name__)
 
 def _format_evidence(evs: List[Dict[str, Any]]) -> str:
     if not evs:
@@ -48,20 +37,23 @@ def medical_qna_node(state: AgentState) -> AgentState:
     """
     env: InputEnvelope = state.input
     question = (env.payload.text or "").strip()
+    logger.debug("medical_qna_node 호출: session=%s, question_len=%d", env.session_id, len(question))
 
     # retreiver
     evidence: List[Dict[str, Any]] = search_medical_sources(question, top_k=5)
+    logger.info("medical_qna_node 검색 완료: evidence_count=%d, session=%s", len(evidence), env.session_id)
     evidence_str = _format_evidence(evidence)
 
     # chain
     prompt = ChatPromptTemplate.from_messages([
-        ("system", SYSTEM),
+        ("system", MED_SYSTEM),
         ("user", USER_TMPL),
     ])
     llm = get_llm_with_tools(temperature=0)
     chain = prompt | llm | StrOutputParser()
 
     expert_text = chain.invoke({"question": question, "evidence": evidence_str}).strip()
+    logger.debug("medical_qna_node LLM 응답 길이=%d, session=%s", len(expert_text), env.session_id)
     if "의료진 상담" not in expert_text:
         expert_text += "\n\n※ 본 정보는 일반적 안내이며, 개인 상태는 의료진 상담이 필요합니다."
 
@@ -72,5 +64,6 @@ def medical_qna_node(state: AgentState) -> AgentState:
     state.metadata["expert_raw"] = expert_text       # 다음 노드 wrap_expert에서 사용
     state.metadata["citations"] = citations          # UI 카드/요약 시 사용
     state.metadata["has_evidence"] = bool(evidence)
+    logger.info("medical_qna_node 상태 저장: has_evidence=%s, citations=%d, session=%s", bool(evidence), len(citations), env.session_id)
 
     return state

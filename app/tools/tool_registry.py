@@ -7,6 +7,9 @@ from app.tools.db_tools import (
 )
 # from app.tools.rag_tools import search_medical_sources
 from app.tools.render_tools import render_chat_output_tool
+from app.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 TOOLS = [
     save_chat_tool,
@@ -23,4 +26,5 @@ TOOLS = [
 
 def get_all_tools():
     """LangGraph 및 LLM에서 호출 가능한 모든 Tool 리스트"""
+    logger.debug("툴 레지스트리: 전체 도구 수=%d", len(TOOLS))
     return TOOLS

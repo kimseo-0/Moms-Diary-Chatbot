@@ -3,6 +3,9 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 from app.utils.db_utils import get_connection, upsert_from_model, fetch_one
+from app.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class BabyProfile(BaseModel):
@@ -40,17 +43,21 @@ class ProfileRepository:
     def get_baby(self, session_id: str) -> Optional[BabyProfile]:
         with get_connection(str(self.db_path)) as conn:
             row = fetch_one(conn, "baby_profile", "session_id", session_id)
+        logger.debug("get_baby 호출: session=%s, found=%s", session_id, bool(row))
         return BabyProfile(**row) if row else None
 
     def get_mother(self, session_id: str) -> Optional[MotherProfile]:
         with get_connection(str(self.db_path)) as conn:
             row = fetch_one(conn, "mother_profile", "session_id", session_id)
+        logger.debug("get_mother 호출: session=%s, found=%s", session_id, bool(row))
         return MotherProfile(**row) if row else None
 
     def upsert_baby(self, model: BabyProfile):
         with get_connection(str(self.db_path)) as conn:
             upsert_from_model(conn, "baby_profile", model)
+        logger.info("아기 프로필 upsert: session=%s, name=%s, week=%s", model.session_id, model.name, model.week)
 
     def upsert_mother(self, model: MotherProfile):
         with get_connection(str(self.db_path)) as conn:
             upsert_from_model(conn, "mother_profile", model)
+        logger.info("산모 프로필 upsert: session=%s, name=%s", model.session_id, model.name)
