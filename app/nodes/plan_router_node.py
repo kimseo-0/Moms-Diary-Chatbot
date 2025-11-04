@@ -1,4 +1,3 @@
-# app/nodes/plan_router_node.py
 from __future__ import annotations
 from typing import Dict, Any
 from langchain_core.prompts import ChatPromptTemplate
@@ -42,7 +41,7 @@ def plan_router_node(state: AgentState) -> AgentState:
     ]).partial(format_instructions=parser.get_format_instructions())
 
     # llm = get_llm_with_tools(temperature=0.0)
-    # Use centralized tooling.get_llm to obtain LLM instances (easier to control globally)
+    # 전역 제어가 쉬운 중앙화된 get_llm을 사용해 LLM 인스턴스를 얻습니다.
     llm = get_llm(model_name=DEFAULT_LLM_MODEL, temperature=0.0)
     chain = prompt | llm | parser
 

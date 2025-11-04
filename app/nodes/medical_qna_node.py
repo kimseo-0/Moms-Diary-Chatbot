@@ -1,4 +1,3 @@
-# app/nodes/medical_qna_node.py
 from __future__ import annotations
 from typing import Dict, Any, List
 from app.core.state import AgentState
@@ -14,6 +13,7 @@ from app.prompts.medical_prompts import SYSTEM as MED_SYSTEM, USER_TMPL
 from app.core.dependencies import get_openai
 from app.core.config import config
 from app.core.logger import get_logger
+from app.core.dependencies import get_profile_repo
 
 logger = get_logger(__name__)
 
@@ -39,17 +39,29 @@ def medical_qna_node(state: AgentState) -> AgentState:
     question = (env.payload.text or "").strip()
     logger.debug("medical_qna_node 호출: session=%s, question_len=%d", env.session_id, len(question))
 
-    # retreiver
+    # 리트리버(retriever)
     evidence: List[Dict[str, Any]] = search_medical_sources(question, top_k=5)
     logger.info("medical_qna_node 검색 완료: evidence_count=%d, session=%s", len(evidence), env.session_id)
     evidence_str = _format_evidence(evidence)
 
-    # chain
+    # 프롬프트+LLM 체인 구성
     prompt = ChatPromptTemplate.from_messages([
         ("system", MED_SYSTEM),
         ("user", USER_TMPL),
     ])
     llm = get_llm_with_tools(temperature=0)
+
+    # 어머니 프로필을 system prompt 슬롯에 넣습니다
+    mother_section = ""
+    try:
+        profile_repo = get_profile_repo()
+        mother = profile_repo.get_mother(env.session_id)
+        if mother:
+            mother_section = "[어머니 프로필]\n" + (mother.model_dump() if hasattr(mother, "model_dump") else str(mother.__dict__))
+    except Exception:
+        mother_section = ""
+
+    prompt = prompt.partial(mother_profile_section=mother_section)
     chain = prompt | llm | StrOutputParser()
 
     expert_text = chain.invoke({"question": question, "evidence": evidence_str}).strip()

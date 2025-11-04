@@ -1,4 +1,3 @@
-# app/nodes/baby_smalltalk_node.py
 from __future__ import annotations
 from typing import Dict, Any
 from langchain_core.prompts import ChatPromptTemplate
@@ -24,6 +23,14 @@ def baby_smalltalk_node(state: AgentState, mode: str = "small_talk") -> AgentSta
             ("system", WRAP_SYSTEM),
             ("user", WRAP_USER),
         ])
+        # 히스토리/페르소나가 있으면 system prompt 슬롯에 주입
+        history_block = state.metadata.get("history_block") or {}
+        persona = history_block.get("persona") if history_block else None
+        persona_section = "" if not persona else f"[페르소나]\n{persona}\n"
+        recent = history_block.get("recent_chats") or []
+        history_section = "" if not recent else "[최근대화]\n" + "\n".join([f"[{r.get('role')}] {r.get('text')}" for r in recent[-10:]])
+
+        prompt = prompt.partial(persona_section=persona_section, history_section=history_section)
         chain = prompt | llm | StrOutputParser()
         baby_text = chain.invoke({"expert_text": expert_text}).strip()
         logger.info("baby_smalltalk_node.wrap_expert 응답 생성, session=%s, len=%d", state.input.session_id, len(baby_text))
@@ -47,6 +54,13 @@ def baby_smalltalk_node(state: AgentState, mode: str = "small_talk") -> AgentSta
         ("user", SMALLTALK_USER),
     ])
 
+    history_block = state.metadata.get("history_block") or {}
+    persona = history_block.get("persona") if history_block else None
+    persona_section = "" if not persona else f"[페르소나]\n{persona}\n"
+    recent = history_block.get("recent_chats") or []
+    history_section = "" if not recent else "[최근대화]\n" + "\n".join([f"[{r.get('role')}] {r.get('text')}" for r in recent[-10:]])
+
+    prompt = prompt.partial(persona_section=persona_section, history_section=history_section)
     chain = prompt | llm | StrOutputParser()
     baby_text = chain.invoke({"user_input": text}).strip()
     logger.info("baby_smalltalk_node.small_talk 응답 생성, session=%s, len=%d", state.input.session_id, len(baby_text))

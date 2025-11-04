@@ -1,4 +1,3 @@
-# app/nodes/urgent_triage_node.py
 from __future__ import annotations
 from app.core.state import AgentState
 from app.core.io_payload import OutputEnvelope
