@@ -12,9 +12,9 @@ logger = get_logger(__name__)
 
 
 async def _build_and_save_persona(session_id: str, history_block: dict[str, Any]) -> None:
-    """백그라운드에서 실행되는 실제 작업 함수.
-
-    LLM을 사용해 페르소나 JSON을 생성하고 저장합니다. LLM 실패 시 기존 간단한 페르소나를 저장합니다.
+    """
+    LLM을 사용해 페르소나 JSON을 생성하고 저장
+    LLM 실패 시 기존 간단한 페르소나를 저장
     """
     try:
         # LLM에 전달할 내용 준비
@@ -124,24 +124,24 @@ async def _build_and_save_persona(session_id: str, history_block: dict[str, Any]
 
 
 def persona_agent_node(state: AgentState) -> AgentState:
-    """노드로 호출되면 history_block을 읽고 백그라운드 태스크로 persona 생성을 트리거합니다."""
+    """
+    노드로 호출되면 history_block을 읽고 
+    백그라운드 태스크로 persona 생성을 트리거
+    """
     session_id = state.session_id
     history_block = state.metadata.get("history_block")
     if not history_block:
         logger.warning("persona_agent_node: no history_block found for session=%s", session_id)
         return state
 
-    # 백그라운드로 태스크 생성(논-블로킹)
     try:
         loop = asyncio.get_event_loop()
     except RuntimeError:
-        # 노드가 동기 환경에서 호출될 경우 새 루프에서 실행
         loop = None
 
     if loop and loop.is_running():
         asyncio.create_task(_build_and_save_persona(session_id, history_block))
     else:
-        # 동기 환경: 바로 백그라운드 스레드에서 실행하지 않고, 미래 호출을 위해 스케줄러에 등록하도록 로깅
         logger.info("persona_agent_node: event loop not running, running task in background via asyncio.run()")
         try:
             asyncio.run(_build_and_save_persona(session_id, history_block))

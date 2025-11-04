@@ -1,9 +1,3 @@
-"""
-간단한 persona 관련 리포지토리
-
-기능: persona_summaries와 child_personas에 대한 직관적이고 가벼운 CRUD를 제공합니다.
-복잡한 ORM을 사용하지 않고 sqlite3로 직접 구현합니다.
-"""
 from __future__ import annotations
 import sqlite3
 from typing import Optional, Dict, Any, List
@@ -18,10 +12,6 @@ def _conn(db_path: Optional[str] = None):
 
 
 def ensure_persona_tables():
-    """런타임에서 마이그레이션 SQL을 실행해 테이블을 보장함.
-
-    개발/테스트 환경에서 마이그레이션을 누락했을 때를 대비한 안전장치입니다.
-    """
     migrations_file = Path(config.ROOT_DIR) / "storage" / "db" / "migrations" / "0001_add_persona_tables.sql"
     if migrations_file.exists():
         sql = migrations_file.read_text(encoding="utf-8")
@@ -30,9 +20,7 @@ def ensure_persona_tables():
 
 
 def upsert_persona_summary(session_id: str, week_start: str, week_end: str, summary: str, note: Optional[str] = None) -> int:
-    """주별 요약을 삽입 또는 업데이트(간단한 upsert 패턴 사용).
-
-    반환값: 영향을 받은 row id (새로 생성된 경우 lastrowid)
+    """주별 요약을 삽입 또는 업데이트
     """
     ensure_persona_tables()
     with _conn() as conn:

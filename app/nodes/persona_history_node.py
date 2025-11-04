@@ -15,9 +15,9 @@ logger = get_logger(__name__)
 
 
 def persona_history_node(state: AgentState) -> AgentState:
-    """AgentState를 받아 history_block을 생성/조회해 state.metadata에 저장하고 반환한다.
-
-    이 노드는 blocking(동기)으로 실행되어야 하므로 오래 걸리는 작업은 여기에 직접 두지 마세요.
+    """
+    AgentState를 받아 history_block을 생성/조회해 state.metadata에 저장하고 반환한다.
+    blocking(동기)으로 실행
     """
     session_id = state.session_id
     # target_date는 간단히 현재 날짜 문자열을 사용하도록 함
@@ -30,15 +30,12 @@ def persona_history_node(state: AgentState) -> AgentState:
     except Exception:
         target_date = None
     if not target_date:
-        # 기본: 한국 표준시(KST) 기준의 오늘 날짜(YYYY-MM-DD)
         try:
-            # Python 3.9+ zoneinfo 사용
             from zoneinfo import ZoneInfo
             from datetime import datetime
 
             target_date = datetime.now(tz=ZoneInfo("Asia/Seoul")).date().isoformat()
         except Exception:
-            # fallback: 고정 오프셋 +9
             from datetime import datetime, timezone, timedelta
 
             kst = timezone(timedelta(hours=9))

@@ -21,12 +21,11 @@ class ChatRepository:
     def __init__(self, db_path: str = "storage/db/app.db"):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-    # DB 스키마가 존재하는지 확인합니다
+        
         try:
             from app.utils.db_utils import ensure_db_initialized
             ensure_db_initialized(str(self.db_path))
         except Exception:
-            # 초기화 실패 시에도 계속 진행합니다; 상위 레벨 코드가 에러를 처리할 수 있습니다
             pass
 
     def save_message(self, message: ChatLog):
