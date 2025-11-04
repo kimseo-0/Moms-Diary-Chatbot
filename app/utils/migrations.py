@@ -1,11 +1,11 @@
 """app/utils/migrations.py
 
-Simple migration runner for the project.
+간단한 DB 마이그레이션 실행기.
 
-This module provides a very small, safe migration helper that ensures the
-database schema from `storage/db/schema.sql` is applied (if present), or that
-a minimal fallback schema is created. It is intentionally conservative and
-idempotent to avoid destructive changes during startup.
+이 모듈은 `storage/db/schema.sql`에 정의된 스키마를 적용하거나
+파일이 없을 때 최소한의 폴백 스키마를 만드는 보수적이고
+아이디엄포턴트(idempotent)한 마이그레이션 헬퍼를 제공합니다. 시작 시
+파괴적 변경을 피하도록 설계되었습니다.
 """
 from pathlib import Path
 from typing import Optional, List
@@ -37,10 +37,10 @@ def run_migrations(db_path: Optional[str] = None) -> None:
     logger.info("DB 마이그레이션 실행: %s", db_path_str)
 
     try:
-        # Apply base schema or fallback
+    # 기본 스키마 적용 또는 폴백 스키마 적용
         ensure_db_initialized(db_path_str)
 
-        # Open a connection and ensure migrations table exists
+    # DB 연결을 열고 migrations 테이블이 존재하는지 확인
         with get_connection(db_path_str) as conn:
             conn.execute(
                 """
@@ -53,7 +53,7 @@ def run_migrations(db_path: Optional[str] = None) -> None:
             )
             conn.commit()
 
-            # Find migration files in sibling 'migrations' directory
+            # 동일 디렉토리의 'migrations' 폴더에서 SQL 파일을 찾습니다
             migrations_dir = path.parent / "migrations"
             if not migrations_dir.exists():
                 logger.debug("마이그레이션 디렉토리 없음: %s", str(migrations_dir))
@@ -80,7 +80,7 @@ def run_migrations(db_path: Optional[str] = None) -> None:
                         logger.info("마이그레이션 적용 완료: %s", name)
                 except Exception:
                     logger.exception("마이그레이션 적용 실패: %s", name)
-                    # continue to next script but record nothing
+                    # 다음 스크립트로 계속 진행하되 아무것도 기록하지 않습니다
 
         logger.info("DB 초기화/업데이트 완료: %s", db_path_str)
     except Exception:

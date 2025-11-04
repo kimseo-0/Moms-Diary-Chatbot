@@ -1,4 +1,3 @@
-# app/services/db_utils.py
 import sqlite3
 from typing import Dict, Any, Tuple
 from pydantic import BaseModel
@@ -7,11 +6,11 @@ from pathlib import Path
 
 
 def ensure_db_initialized(db_path: str):
-    """Ensure the database file has required tables.
+    """데이터베이스 파일에 필요한 테이블이 존재하는지 확인합니다.
 
-    If a `schema.sql` file exists next to the DB (storage/db/schema.sql), run it.
-    Otherwise create minimal `chat_logs` and `diaries` tables so the app can operate.
-    This function is idempotent.
+    DB 파일 옆에 `schema.sql`(storage/db/schema.sql)이 있으면 이를 실행합니다.
+    없으면 애플리케이션이 동작할 수 있도록 최소한의 `chat_logs`와 `diaries` 테이블을 생성합니다.
+    이 함수는 아이디엄포턴트(idempotent)합니다.
     """
     p = Path(db_path)
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -25,7 +24,7 @@ def ensure_db_initialized(db_path: str):
             if sql.strip():
                 conn.executescript(sql)
         else:
-            # minimal fallback schema to ensure required tables exist
+            # 필요한 테이블이 존재하도록 최소한의 폴백 스키마를 적용합니다
             conn.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS chat_logs (
@@ -91,23 +90,23 @@ def upsert_from_model(conn: sqlite3.Connection, table: str, model: BaseModel, pk
     """
     Pydantic 모델 기반 동적 UPSERT (INSERT or UPDATE)
     """
-    # Use model_dump first so we can decide whether PK is present.
+    # model_dump를 우선 사용해 PK 존재 여부를 판단합니다.
     data = safe_model_dump(model, exclude_none=True)
     pk_value = data.get(pk_field)
 
     if pk_value is None:
-        # No PK provided: perform a simple INSERT of available fields
+        # PK가 제공되지 않음: 사용 가능한 필드로 단순 INSERT 수행
         cols = ", ".join(data.keys())
         qs = ", ".join(["?"] * len(data))
         query = f"INSERT INTO {table} ({cols}) VALUES ({qs})"
         conn.execute(query, tuple(data.values()))
     else:
-        # PK present: attempt update if row exists, otherwise insert
+        # PK가 존재함: 행이 있으면 UPDATE 시도, 없으면 INSERT 수행
         cur = conn.execute(f"SELECT COUNT(*) FROM {table} WHERE {pk_field} = ?", (pk_value,))
         row = cur.fetchone()
         exists = (row["COUNT(*)"] if isinstance(row, dict) else row[0]) > 0
 
-        # Prepare update parts (exclude pk_field itself)
+    # 업데이트에 필요한 부분 준비 (pk_field는 제외)
         filtered, set_clause, values, _ = prepare_model_sql_parts(model, pk_field)
 
         if exists and set_clause:
@@ -118,7 +117,7 @@ def upsert_from_model(conn: sqlite3.Connection, table: str, model: BaseModel, pk
             """
             conn.execute(query, (*values, pk_value))
         elif not exists:
-            # Insert full data (including pk_field)
+            # PK 필드를 포함한 전체 데이터를 INSERT
             cols = ", ".join(data.keys())
             qs = ", ".join(["?"] * len(data))
             query = f"INSERT INTO {table} ({cols}) VALUES ({qs})"
