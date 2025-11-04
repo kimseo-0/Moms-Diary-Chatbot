@@ -6,3 +6,6 @@
 .venv/
 .
 /storage
+/logs
+/docs
+/test
