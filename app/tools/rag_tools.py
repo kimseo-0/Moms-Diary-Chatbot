@@ -1,4 +1,3 @@
-# app/tools/rag_tools.py
 from langchain.agents import tool
 from app.core.dependencies import get_chroma_retriever
 from app.core.logger import get_logger

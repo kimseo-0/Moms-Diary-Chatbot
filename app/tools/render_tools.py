@@ -1,4 +1,3 @@
-# app/tools/render_tools.py
 from langchain.agents import tool
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any

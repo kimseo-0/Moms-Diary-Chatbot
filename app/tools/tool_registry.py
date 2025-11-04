@@ -1,11 +1,9 @@
-# app/tools/tool_registry.py
 from app.tools.db_tools import (
     save_chat_tool, get_recent_chats_tool,
     get_chats_by_date_tool,
     save_diary_tool, get_diary_list_tool,
     get_profile_tool, update_baby_profile_tool, update_mother_profile_tool
 )
-# from app.tools.rag_tools import search_medical_sources
 from app.tools.render_tools import render_chat_output_tool
 from app.core.logger import get_logger
 
@@ -19,7 +17,7 @@ TOOLS = [
     get_diary_list_tool,
     get_profile_tool,
     update_baby_profile_tool,
-    # search_medical_sources,
+    # (의학 검색 툴은 필요 시 플로우에 추가하세요)
     render_chat_output_tool,
     update_mother_profile_tool
 ]
