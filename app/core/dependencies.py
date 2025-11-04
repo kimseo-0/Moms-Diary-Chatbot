@@ -10,9 +10,8 @@ from app.services.diary_repo import DiaryRepository
 from app.services.chat_repo import ChatRepository
 from app.core.config import config
 
-# NOTE: avoid creating heavy adapter/service instances at import time.
-# Use lazy getters below (cached) to prevent import-time side effects
-# and make testing easier.
+# 주의: import 시점에 무거운 어댑터/서비스 인스턴스를 생성하지 마세요.
+# 아래의 지연 생성(getter)을 사용해 import-time 부작용을 피하고 테스트를 용이하게 합니다.
 
 # -----------------------------------------
 # 의존성 주입
@@ -35,7 +34,7 @@ def get_chroma_vectorstore(collection_name: Optional[str]):
     coll = collection_name
     oa = get_openai()
     embeddings = oa.get_embedding_model(model=DEFAULT_EMBED_MODEL)  # ⬅️ 직접 사용
-    # import heavy dependency lazily to avoid import-time side effects
+    # 무거운 의존성은 지연 임포트하여 import 시점 부작용을 방지합니다
     from langchain_community.vectorstores import Chroma
 
     return Chroma(
@@ -48,7 +47,7 @@ def get_chroma_retriever(collection_name: Optional[str], *, k: int = 5):
     """
     LangChain VectorStoreRetriever (간단 검색용).
     """
-    # import typing-level class lazily
+    # 타입 수준 의존성도 지연 임포트합니다
     from langchain_core.vectorstores import VectorStoreRetriever  # type: ignore
 
     return get_chroma_vectorstore(collection_name).as_retriever(search_kwargs={"k": k})
