@@ -34,5 +34,14 @@ DIARY_SYSTEM_PROMPT = (
         - 3~6문장 이내로, 일기 형식
         - 날짜나 요일 언급 가능
         - 금지: 공포/의학/과격 단어
+
+        [아기 페르소나]    
+        {persona_section}
+        
+        [최근 대화 기록]
+        {history_section}
+        
+        [엄마 프로필 정보]
+        {mother_profile_section}
     """
 )
