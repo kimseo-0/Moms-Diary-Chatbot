@@ -11,9 +11,9 @@ logger = get_logger(__name__)
 
 class OpenAIAdapter:
     """
-    OpenAI 모델 인스턴스를 공유(singleton) 방식으로 관리
-    - 같은 모델 이름으로 여러 번 호출해도 동일 인스턴스를 반환
-    - LLM과 Embedding 모델 둘 다 지원
+    OpenAI 모델 인스턴스를 공유(singleton) 방식으로 관리합니다.
+    - 동일 모델 이름으로 여러 번 호출해도 같은 인스턴스를 재사용합니다.
+    - LLM과 임베딩 모델을 모두 지원합니다.
     """
 
     _llm_instances: Dict[str, ChatOpenAI] = {}
@@ -21,7 +21,8 @@ class OpenAIAdapter:
     _lock = Lock()
 
     def __init__(self):
-        # Do not raise on import; store key if present and raise only on actual usage.
+        # import 시점에 예외를 발생시키지 않습니다. API 키는 저장하되
+        # 실제 호출 시점에만 확인하여 예외를 던집니다.
         self.api_key = os.getenv("OPENAI_API_KEY")
         logger.info("OpenAIAdapter 초기화 (API 키 존재 여부=%s)", bool(self.api_key))
 
@@ -39,10 +40,8 @@ class OpenAIAdapter:
         temperature: float = 0.7,
         **kwargs,
     ) -> ChatOpenAI:
-        """
-        모델 이름으로 LLM 인스턴스 재사용.
-        """
-        # Ensure API key exists before creating model instances
+        """모델 이름을 키로 LLM 인스턴스를 재사용합니다."""
+    # 모델 인스턴스를 생성하기 전에 API 키 존재 여부를 확인합니다
         self._ensure_api_key()
         with self._lock:
             if model not in self._llm_instances:
@@ -63,10 +62,8 @@ class OpenAIAdapter:
         model: str = "text-embedding-3-small",
         **kwargs,
     ) -> OpenAIEmbeddings:
-        """
-        임베딩 모델 재사용.
-        """
-        # Ensure API key exists before creating embedding instances
+        """임베딩 모델 인스턴스를 재사용합니다."""
+    # 임베딩 모델을 생성하기 전에 API 키 존재 여부를 확인합니다
         self._ensure_api_key()
         with self._lock:
             if model not in self._emb_instances:
@@ -85,11 +82,11 @@ class OpenAIAdapter:
         temperature: float = 0.7,
         **kwargs,
     ) -> str:
+        """간단한 단발성 LLM 호출을 수행하고 결과 텍스트를 반환합니다.
+
+        messages 예: [{"role": "system", "content": "..."}, ...]
         """
-        간단히 한 번의 대화를 수행하고 결과 텍스트만 반환.
-        messages: [{"role": "system", "content": "..."} ...]
-        """
-        # Ensure API key before making a call
+    # 호출 전에 API 키가 있는지 확인합니다
         self._ensure_api_key()
         logger.info("LLM 호출: model=%s, temperature=%s, messages=%d", model, temperature, len(messages))
         try:
@@ -110,10 +107,8 @@ class OpenAIAdapter:
         model: str = "text-embedding-3-small",
         **kwargs,
     ) -> List[List[float]]:
-        """
-        여러 문장의 임베딩을 한 번에 계산.
-        """
-        # Ensure API key before embedding
+        """여러 문장의 임베딩을 한 번에 계산합니다."""
+    # 임베딩 수행 전에 API 키가 있는지 확인합니다
         self._ensure_api_key()
         logger.info("임베딩 실행: model=%s, texts=%d", model, len(texts))
         try:
