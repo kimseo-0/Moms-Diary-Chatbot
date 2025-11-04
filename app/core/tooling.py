@@ -1,4 +1,3 @@
-# app/core/tooling.py
 from app.core.config import config
 from app.core.dependencies import get_openai
 from app.tools.tool_registry import get_all_tools
