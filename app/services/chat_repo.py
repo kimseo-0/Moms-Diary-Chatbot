@@ -21,22 +21,22 @@ class ChatRepository:
     def __init__(self, db_path: str = "storage/db/app.db"):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        # Ensure DB schema exists
+    # DB 스키마가 존재하는지 확인합니다
         try:
             from app.utils.db_utils import ensure_db_initialized
             ensure_db_initialized(str(self.db_path))
         except Exception:
-            # If initialization fails, continue; higher-level code may handle errors
+            # 초기화 실패 시에도 계속 진행합니다; 상위 레벨 코드가 에러를 처리할 수 있습니다
             pass
 
     def save_message(self, message: ChatLog):
-        """한 턴의 채팅 저장"""
+        """한 턴의 채팅을 저장합니다."""
         with get_connection(str(self.db_path)) as conn:
             query = """
                 INSERT INTO chat_logs (session_id, role, text, meta_json, created_at)
                 VALUES (?, ?, ?, ?, ?)
             """
-            # KST is UTC+9
+            # KST는 UTC+9입니다
             kst = timezone(timedelta(hours=9))
             conn.execute(
                 query,
@@ -97,7 +97,7 @@ class ChatRepository:
     def delete_last_message(self, session_id: str) -> bool:
         """가장 최근 채팅 메시지 1개 삭제"""
         with get_connection(str(self.db_path)) as conn:
-            # Find the most recent message ID
+            # 가장 최근 메시지 ID 조회
             query = """
                 SELECT id FROM chat_logs
                 WHERE session_id = ?
@@ -108,7 +108,7 @@ class ChatRepository:
             if not row:
                 return False
             
-            # Delete that message
+            # 해당 메시지 삭제
             conn.execute("DELETE FROM chat_logs WHERE id = ?", (row["id"],))
             conn.commit()
             logger.info("가장 최근 메시지 삭제 완료: id=%s, session=%s", row["id"], session_id)

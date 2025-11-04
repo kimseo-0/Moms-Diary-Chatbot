@@ -10,9 +10,9 @@ logger = get_logger(__name__)
 
 class BabyProfile(BaseModel):
     session_id: str
-    name: Optional[str] = None
+    name: Optional[str] = Field(description="아기 이름", default=None)
     week: Optional[int] = Field(default=None, ge=0, le=42)
-    gender: Optional[str] = "U"
+    gender: Optional[str] = Field(default="U", description="아기 성별 (M: 남아, F: 여아, U: 미정)")
     tags_json: Optional[str] = None
     notes: Optional[str] = None
     created_at: Optional[str] = None
@@ -21,7 +21,7 @@ class BabyProfile(BaseModel):
 
 class MotherProfile(BaseModel):
     session_id: str
-    name: Optional[str] = None
+    name: Optional[str] = Field(description="산모 이름", default=None)
     age: Optional[int] = Field(default=None, ge=0, le=100)
     medical_notes: Optional[str] = None
     prefs_json: Optional[str] = None
@@ -33,7 +33,7 @@ class ProfileRepository:
     def __init__(self, db_path: str = "storage/db/app.db"):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        # Ensure DB schema exists
+    # DB 스키마가 존재하는지 확인합니다
         try:
             from app.utils.db_utils import ensure_db_initialized
             ensure_db_initialized(str(self.db_path))

@@ -1,4 +1,3 @@
-# app/tools/db_tools.py
 from langchain.agents import tool
 from app.core.dependencies import get_chat_repo, get_diary_repo, get_profile_repo
 from app.services.chat_repo import ChatLog
@@ -9,7 +8,7 @@ from app.core.pydantic_utils import safe_model_dump
 
 logger = get_logger(__name__)
 
-# Note: these getters are cached; calling them here is acceptable but kept minimal
+# 주: 아래 getter들은 캐시됩니다. 여기에서 호출하는 것은 허용되지만 최소화합니다.
 chat_repo = get_chat_repo()
 diary_repo = get_diary_repo()
 profile_repo = get_profile_repo()
