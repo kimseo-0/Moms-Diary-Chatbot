@@ -1,4 +1,3 @@
-# streamlit_app/pages/chatbot.py
 from __future__ import annotations
 import streamlit as st
 from typing import Dict, Any
@@ -6,6 +5,8 @@ import json
 from client_api import post_chat
 from client_api import get_chat_history_by_date, init_profile
 from datetime import date as _date
+import base64
+from pathlib import Path
 
 def render_assistant(result: Dict[str, Any]):
     meta = result.get("meta", {})
@@ -13,26 +14,27 @@ def render_assistant(result: Dict[str, Any]):
     text = result.get("text", "")
 
     if rtype == "chat":
-        # Special UI handling: when the diary node returns a chat-type response
-        # indicating there is no conversation data for creating a diary,
-        # show a prominent warning instead of a normal chat bubble.
+        # 다이어리 노드가 '채팅 없음'을 알리는 chat 타입을 반환할 경우
+        # 일반 채팅 버블 대신 경고로 표시합니다.
         source = meta.get("source", "")
         if source == "diary_node" and ("대화 내용이 없" in text or "작성할 대화 내용이 없어요" in text):
             st.warning(text)
         else:
             st.write(text)
     elif rtype == "expert_answer":
+        # 전문가 답변은 카드 형태로 강조 출력
         st.markdown(f"**🩺 전문가 답변**\n\n{text}")
         data = result.get("data", {})
         if data.get("raw"):
             with st.expander("전문가 원문 보기"):
                 st.write(data["raw"])
     elif rtype == "diary_entry":
+        # 일기 형태 응답 처리
         st.markdown(f"**📓 오늘의 일기**")
         data = result.get("data", {})
         st.info(f"날짜: {data.get('diary', {}).get('date','')}")
         st.write(data.get("diary", {}).get("content", ""))
-        # Show core chats used to create the diary in an expander/toggle
+        # 참고한 대화 보기
         used = data.get("used_chats") or []
         if used:
             with st.expander("참고한 대화 보기"):
@@ -41,9 +43,39 @@ def render_assistant(result: Dict[str, Any]):
                     created = m.get("created_at", "")
                     st.markdown(f"- **{role}** ({created}): {m.get('text','')}")
     elif rtype == "safety_alert":
+        # 안전 관련 경고는 에러 박스로 표시
         st.error(f"🚨 {text}")
     else:
         st.write(text or "…")
+
+def _load_avatar(filename: str, fallback: str):
+    """Try to load `filename` from likely `resources` folders and return a data URI or fallback emoji.
+
+    Checks (in order):
+    - streamlit_app/resources (relative to this file)
+    - repository root `resources` (two levels up)
+    """
+    try:
+        here = Path(__file__).resolve()
+        candidates = [
+            here.parent.parent / "resources",
+            here.parents[2] / "resources",
+        ]
+        for res_dir in candidates:
+            p = res_dir / filename
+            if p.exists():
+                data = p.read_bytes()
+                suf = p.suffix.lower()
+                mime = "image/png"
+                if suf in (".jpg", ".jpeg"):
+                    mime = "image/jpeg"
+                elif suf == ".webp":
+                    mime = "image/webp"
+                b64 = base64.b64encode(data).decode("ascii")
+                return f"data:{mime};base64,{b64}"
+    except Exception:
+        pass
+    return fallback
 
 def main():
     st.subheader("💬 엄마-아기 챗봇")
@@ -58,27 +90,27 @@ def main():
         selected_date = st.date_input("날짜", value=_date.today())
         target_date = selected_date.isoformat()
 
-    # Ensure profiles exist for this session (call backend init)
+    # 이 세션에 대한 프로필이 존재하는지 확인합니다 (백엔드 초기화 호출)
     try:
         if session_id:
             init_profile(session_id)
     except Exception:
-        # ignore init failures
+        # 초기화 실패는 무시합니다
         pass
 
-    # Show the currently selected chat date in the UI title area
+    # UI 타이틀 영역에 현재 선택된 채팅 날짜를 표시합니다
     try:
         st.markdown(f"**현재 보고 있는 채팅 날짜:** {target_date}")
     except Exception:
         pass
 
-    # --- Simple cache for chat histories per (session_id, date) ---
+    # --- (session_id, date) 기준 간단한 채팅 캐시 ---
     if "chat_cache" not in st.session_state:
         st.session_state["chat_cache"] = {}
     if "chat_cache_session" not in st.session_state:
         st.session_state["chat_cache_session"] = session_id
     elif st.session_state["chat_cache_session"] != session_id:
-        # Session switched: clear chat cache
+    # 세션이 바뀌면 채팅 캐시를 비웁니다
         st.session_state["chat_cache"] = {}
         st.session_state["chat_cache_session"] = session_id
 
@@ -117,17 +149,17 @@ def main():
     def load_chat_cached(sid: str, d: str, force: bool = False):
         key = _chat_key(sid, d)
         if (not force) and key in st.session_state["chat_cache"]:
-            # Return a shallow copy so the live state can diverge without mutating cache
+            # 캐시를 직접 변경하지 않도록 얕은 복사본을 반환합니다
             return list(st.session_state["chat_cache"][key])
         resp = get_chat_history_by_date(sid, d)
         items = _build_messages_from_response(resp)
         st.session_state["chat_cache"][key] = list(items)
         return items
 
-    # Manual refresh button (bypass cache)
+    # 수동 새로고침 버튼 (캐시 우회)
     refresh = st.button("🔄 채팅 새로고침", help="캐시를 무시하고 다시 불러옵니다")
 
-    # Load when session/date changes or when refresh requested
+    # 세션/날짜 변경 또는 새로고침 요청 시 로드합니다
     loaded_key = st.session_state.get("loaded_session_date")
     if loaded_key != (session_id, target_date) or refresh:
         try:
@@ -137,9 +169,14 @@ def main():
         st.session_state["messages"] = list(items)
         st.session_state["loaded_session_date"] = (session_id, target_date)
 
+    # -- 아바타 로드 (resources 폴더 내 이미지 우선, 없으면 이모지로 대체) --
+    assistant_avatar = _load_avatar("assistant.png", "🤖")
+    user_avatar = _load_avatar("user.png", "🧑‍🍼")
+
     # 1) 과거 메시지 먼저 렌더
     for msg in st.session_state["messages"]:
-        with st.chat_message(msg["role"]):
+        avatar = assistant_avatar if msg.get("role") == "assistant" else user_avatar
+        with st.chat_message(msg["role"], avatar=avatar):
             if msg["role"] == "assistant" and msg.get("result"):
                 render_assistant(msg["result"])
             else:
@@ -156,7 +193,7 @@ def main():
 
     if user_text:
         # 방금 입력한 사용자 메시지를 즉시 화면에 표시
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar=user_avatar):
             st.markdown(user_text)
 
         # 히스토리에 유저 메시지 먼저 저장
@@ -166,7 +203,7 @@ def main():
         })
 
         # 3) 어시스턴트 호출 + 렌더
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=assistant_avatar):
             with st.spinner("아기가 생각 중…"):
                 resp = post_chat(
                     session_id=session_id,
@@ -191,7 +228,7 @@ def main():
                     "content": result.get("text", ""),
                     "result": result,
                 })
-                # Update cache for current (session_id, date)
+                # 현재 (session_id, date)에 대한 캐시를 업데이트합니다
                 try:
                     st.session_state["chat_cache"][
                         f"{session_id}:{target_date}"

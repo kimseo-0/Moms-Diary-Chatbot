@@ -1,4 +1,3 @@
-# streamlit_app/client_api.py
 from __future__ import annotations
 import os
 import requests
@@ -64,5 +63,46 @@ def save_diary(session_id: str, date: str, content: str) -> Dict[str, Any]:
     url = f"{API_BASE}/api/diary"
     payload = {"session_id": session_id, "date": date, "content": content}
     r = requests.post(url, json=payload, timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+
+def get_persona(session_id: str) -> Dict[str, Any]:
+    url = f"{API_BASE}/api/persona/{session_id}"
+    r = requests.get(url, timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+
+def refresh_persona(session_id: str, background: bool = True) -> Dict[str, Any]:
+    url = f"{API_BASE}/api/persona/{session_id}/refresh"
+    params = {"background": str(background).lower()}
+    r = requests.post(url, params=params, timeout=10)
+    r.raise_for_status()
+    return r.json()
+
+
+def post_expert(session_id: str, text: str) -> Dict[str, Any]:
+    """Call the expert-only chat endpoint which uses the medical_qna agent pipeline.
+
+    Returns the same OutputEnvelope structure as /api/chat but with expert_answer meta.
+    """
+    payload = {
+        "session_id": session_id,
+        "payload": {
+            "text": text,
+            "metadata": {"type": "expert", "source": "streamlit", "language": "ko", "extra": {}},
+        },
+    }
+    url = f"{API_BASE}/api/chat/expert"
+    r = requests.post(url, json=payload, timeout=30)
+    r.raise_for_status()
+    return r.json()
+
+
+def get_profile(session_id: str) -> Dict[str, Any]:
+    """Fetch baby and mother profile plus persona/summary."""
+    url = f"{API_BASE}/api/profile/{session_id}"
+    r = requests.get(url, timeout=15)
     r.raise_for_status()
     return r.json()

@@ -1,4 +1,4 @@
-# uv run streamlit run streamlit_app/main.py
+# streamlit 앱 진입점
 from __future__ import annotations
 import streamlit as st
 
@@ -14,7 +14,7 @@ pages = [
         title="Chatbot",
         icon="💬",
         default=True,
-        url_path="chat"
+        url_path="chat",
     ),
     st.Page(
         page="pages/diary.py",
@@ -22,18 +22,30 @@ pages = [
         icon="📔",
         url_path="diary",
     ),
-    # st.Page(
-    #     page="pages/emotion.py",
-    #     title="Emotion Analysis",
-    #     icon="🧠",
-    #     url_path="emotion",
-    # ),
-    # st.Page(
-    #     page="pages/baby.py",
-    #     title="Baby",
-    #     icon="🍼",
-    #     url_path="baby",
-    # ),
+    st.Page(
+        page="pages/profile.py",
+        title="Profile",
+        icon="👤",
+        url_path="profile",
+    ),
+    st.Page(
+        page="pages/expert_qna.py",
+        title="Expert QnA",
+        icon="🩺",
+        url_path="expert",
+    ),
+    st.Page(
+        page="pages/analysis.py",
+        title="Analysis",
+        icon="📊",
+        url_path="analysis",
+    ),
+    st.Page(
+        page="pages/face_image.py",
+        title="Face Image",
+        icon="🎨",
+        url_path="face_image",
+    ),
 ]
 
 nav = st.navigation(pages)

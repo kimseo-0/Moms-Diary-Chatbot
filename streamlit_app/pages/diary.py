@@ -1,4 +1,3 @@
-# streamlit_app/pages/diary.py
 from __future__ import annotations
 import streamlit as st
 from datetime import date
@@ -15,17 +14,17 @@ st.caption("달력에서 날짜를 선택하면 해당 날짜의 일기를 자�
 
 target_date = selected_date.isoformat()
 
-# --- Simple per-session per-date cache ---
+# --- 간단한 세션별 날짜 캐시 ---
 if "diary_cache" not in st.session_state:
     st.session_state.diary_cache = {}
 if "cache_session" not in st.session_state:
     st.session_state.cache_session = session_id
 elif st.session_state.cache_session != session_id:
-    # Session switched: clear cache for safety
+    # 세션이 변경되면 안전을 위해 캐시를 비웁니다
     st.session_state.diary_cache = {}
     st.session_state.cache_session = session_id
 
-# Ensure profiles exist for the selected session
+# 선택한 세션에 대해 프로필이 존재하는지 확인합니다
 try:
     if session_id:
         init_profile(session_id)
@@ -45,10 +44,10 @@ def load_diary_cached(sid: str, d: str, force: bool = False):
     st.session_state.diary_cache[key] = diary
     return diary
 
-# Manual refresh button (bypass cache)
+# 수동 새로고침 버튼 (캐시 무시)
 refresh = st.button("🔄 새로고침", help="캐시를 무시하고 새로 불러옵니다")
 
-# Auto-load when date changes or cache miss
+# 날짜 변경 또는 캐시 미스 시 자동 로드
 try:
     diary = load_diary_cached(session_id, target_date, force=refresh)
     if diary:
