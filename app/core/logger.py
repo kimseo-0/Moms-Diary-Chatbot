@@ -10,10 +10,10 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def setup_logging(level: int = logging.INFO):
-    """Configure root logger with console and rotating file handlers."""
+    """콘솔 및 회전 파일 핸들러로 루트 로거를 구성합니다."""
     root = logging.getLogger()
     if root.handlers:
-        return  # already configured
+        return  # 이미 구성됨
 
     fmt = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
 
